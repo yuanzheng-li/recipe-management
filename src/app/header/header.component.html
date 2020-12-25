@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+  <span class="header__item">Recipe Book</span>
+  <span class="header__item header__item--small">Recipes</span>
+  <span class="header__item header__item--small">Shopping List</span>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Manage Button">
+    <span>Manage</span>
+    <mat-icon>expand_more</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>save</mat-icon>
+      <span>Save Data</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>get_app</mat-icon>
+      <span>Fetch Data</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
