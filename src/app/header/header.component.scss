@@ -2,19 +2,19 @@ mat-toolbar {
   display: flex;
   align-items: center;
 
-  span.header__item {
+  & > span {
     margin: 0 0.5rem;
+
+    &:nth-child(1) {
+      margin-right: 3rem;
+    }
+
+    &.header__item--small {
+      font-size: 1rem;
+    }
   }
 
-  span.header__item--small {
-    font-size: 1rem;
-  }
-
-  span.header__item:nth-child(1) {
-    margin-right: 3rem;
-  }
-
-  button {
+  & > button {
     margin-left: auto;
     width: auto;
   }
