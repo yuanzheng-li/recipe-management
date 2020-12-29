@@ -1,2 +1,7 @@
-<app-recipe-list></app-recipe-list>
-<app-recipe-detail></app-recipe-detail>
+<app-recipe-list (recipeSelect)="onRecipeSelect($event)"></app-recipe-list>
+<section>
+  <app-recipe-detail *ngIf="selectedRecipe; else infoText" [recipe]="selectedRecipe"></app-recipe-detail>
+  <ng-template #infoText>
+    Please select a recipe!
+  </ng-template>
+</section>

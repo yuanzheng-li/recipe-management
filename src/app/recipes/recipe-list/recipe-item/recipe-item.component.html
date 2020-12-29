@@ -1,1 +1,7 @@
-<p>recipe-item works!</p>
+<mat-card (click)="onSelect()">
+  <mat-card-title>{{ recipe.name }}</mat-card-title>
+  <img mat-card-lg-image [src]="recipe.imagePath" alt="Image of {{ recipe.name }}">
+  <mat-card-content>
+    {{ recipe.description }}
+  </mat-card-content>
+</mat-card>
