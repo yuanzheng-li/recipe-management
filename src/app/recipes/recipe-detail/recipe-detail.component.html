@@ -1,1 +1,23 @@
-<p>recipe-detail works!</p>
+<article>
+  <h1>Recipe Name</h1>
+  <button mat-icon-button [matMenuTriggerFor]="recipeManage" aria-label="Manage Recipe Button">
+    <span>Manage Recipe</span>
+    <mat-icon>expand_more</mat-icon>
+  </button>
+  <mat-menu #recipeManage="matMenu">
+    <button mat-menu-item>
+      <mat-icon>shopping_cart</mat-icon>
+      <span>To Shopping List</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>create</mat-icon>
+      <span>Edit Recipe</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>delete</mat-icon>
+      <span>Delete Recipe</span>
+    </button>
+  </mat-menu>
+  <section>Description</section>
+  <section>Ingredients</section>
+</article>
