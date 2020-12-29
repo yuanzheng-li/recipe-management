@@ -1,3 +1,7 @@
+<mat-list role="list">
+  <mat-list-item role="listitem" *ngFor="let ingredient of ingredients">{{ ingredient.name }} ({{ ingredient.amount }})</mat-list-item>
+</mat-list>
+
 <app-shopping-edit></app-shopping-edit>
 <hr>
 <p>The shopping list</p>
