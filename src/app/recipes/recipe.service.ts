@@ -1,4 +1,5 @@
 import { EventEmitter } from "@angular/core";
+import { Ingredient } from "../shared/ingredient.model";
 import { Recipe } from "./recipe.model";
 
 export class RecipeService {
@@ -6,12 +7,17 @@ export class RecipeService {
     new Recipe(
       'Kungpao Chicken',
       'This is kungpao chicken',
-      'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=960,872'
+      'https://www.onceuponachef.com/images/2018/05/Kung-Pao-Chicken-16-scaled.jpg',
+      [new Ingredient('Chicken', 1), new Ingredient('Cucumber', 1)]
     ),
     new Recipe(
-      'Mushroom Chicken',
-      'This is mushroom chicken',
-      'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=960,872'
+      'Frog Dry pot',
+      'This is frog dry pot',
+      'https://cdn2.lamag.com/wp-content/uploads/sites/6/2013/09/frogcasserole.jpg',
+      [
+        new Ingredient('Frog', 1),
+        new Ingredient('Celery', 1)
+      ]
     ),
   ];
 

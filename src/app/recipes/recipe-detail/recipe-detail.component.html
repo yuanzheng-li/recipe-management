@@ -6,7 +6,7 @@
     <mat-icon>expand_more</mat-icon>
   </button>
   <mat-menu #recipeManage="matMenu">
-    <button mat-menu-item>
+    <button mat-menu-item (click)="onAddToShoppingList()">
       <mat-icon>shopping_cart</mat-icon>
       <span>To Shopping List</span>
     </button>
@@ -20,5 +20,9 @@
     </button>
   </mat-menu>
   <section>{{ recipe.description }}</section>
-  <section>Ingredients</section>
+  <section>
+    <mat-list role="list">
+      <mat-list-item role="listitem" *ngFor="let ingredient of recipe.ingredients">{{ ingredient.name }} ({{ ingredient.amount }})</mat-list-item>
+    </mat-list>
+  </section>
 </article>
