@@ -7,9 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'recipe-management';
-  selectedSection = 'recipes';
-
-  onNavigation(section: string) {
-    this.selectedSection = section;
-  }
 }

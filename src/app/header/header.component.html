@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <span class="header__item">Recipe Book</span>
-  <span class="header__item header__item--clickable" (click)="onSelect('recipes')">Recipes</span>
-  <span class="header__item header__item--clickable" (click)="onSelect('shopping-list')">Shopping List</span>
+  <span class="header__item header__item--clickable" routerLink="recipes">Recipes</span>
+  <span class="header__item header__item--clickable" routerLink="shopping-list">Shopping List</span>
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Manage Button">
     <span>Manage</span>
     <mat-icon>expand_more</mat-icon>

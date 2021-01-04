@@ -1,1 +1,6 @@
-<app-recipe-item *ngFor="let recipe of recipes" [recipe]="recipe"></app-recipe-item>
+<mat-card (click)="onAddRecipe()">
+  <mat-icon>add</mat-icon>
+  <p>Add Recipe</p>
+</mat-card>
+
+<app-recipe-item *ngFor="let recipe of recipes; index as i" [recipe]="recipe" [routerLink]="['/recipes', i]"></app-recipe-item>

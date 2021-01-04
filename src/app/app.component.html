@@ -1,3 +1,2 @@
-<app-header (sectionSelect)="onNavigation($event)"></app-header>
-<app-recipes *ngIf="selectedSection === 'recipes'"></app-recipes>
-<app-shopping-list *ngIf="selectedSection === 'shopping-list'"></app-shopping-list>
+<app-header></app-header>
+<router-outlet></router-outlet>

@@ -1,6 +1,6 @@
-<mat-card (click)="onSelect()">
+<mat-card>
   <mat-card-title>{{ recipe.name }}</mat-card-title>
-  <img mat-card-lg-image [src]="recipe.imagePath" alt="Image of {{ recipe.name }}">
+  <img mat-card-image [src]="recipe.imagePath" alt="Image of {{ recipe.name }}">
   <mat-card-content>
     {{ recipe.description }}
   </mat-card-content>
