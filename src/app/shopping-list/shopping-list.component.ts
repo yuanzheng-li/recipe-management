@@ -6,7 +6,7 @@ import { ShoppingListService } from './shopping-list.service';
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
-  styleUrls: ['./shopping-list.component.scss']
+  styleUrls: ['./shopping-list.component.scss'],
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients!: Ingredient[];
@@ -23,5 +23,13 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.ingredientsChangedSubject.unsubscribe();
+  }
+
+  onIngredientEdit(index: number) {
+    this.shoppingListService.edittingStarted.next(index);
+  }
+
+  onIngredientDelete(index: number) {
+    console.log(index);
   }
 }

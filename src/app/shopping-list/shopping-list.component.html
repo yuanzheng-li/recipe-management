@@ -1,5 +1,14 @@
 <app-shopping-edit></app-shopping-edit>
 
-<mat-list role="list">
-  <mat-list-item role="listitem" *ngFor="let ingredient of ingredients">{{ ingredient.name }} ({{ ingredient.amount }})</mat-list-item>
-</mat-list>
+<mat-selection-list
+  role="list"
+  #ingredientsList
+  [multiple]="false">
+  <mat-list-option
+    role="listitem"
+    *ngFor="let ingredient of ingredients; index as index"
+    [value]="ingredient"
+    (click)="onIngredientEdit(index)"
+    >{{ ingredient.name }} ({{ ingredient.amount }})
+  </mat-list-option>
+</mat-selection-list>

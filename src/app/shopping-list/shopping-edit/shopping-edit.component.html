@@ -1,21 +1,54 @@
-<form>
-  <div>
-    <label for="name">Name</label>
-    <input
-      type="text"
-      name="name"
-      id="name"
-      #nameInput>
-  </div>
-  <div>
-    <label for="amount">Amount</label>
-    <input
-      type="number"
-      name="amount"
-      id="amount"
-      #amountInput>
-  </div>
+<form (ngSubmit)="onSubmit(form)" #form="ngForm">
+  <section class="form-group">
+    <section class="form-control">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input
+          matInput
+          placeholder="Kale"
+          name="name"
+          ngModel
+          required
+          #name="ngModel"
+          >
+        <mat-error *ngIf="name.invalid && name.touched">Please enter the name!</mat-error>
+      </mat-form-field>
+    </section>
+    <section class="form-control">
+      <mat-form-field appearance="fill">
+        <mat-label>Amount</mat-label>
+        <input
+          matInput
+          placeholder="9"
+          name="amount"
+          ngModel
+          required
+          pattern="^[1-9]+[0-9]*$"
+          #amount="ngModel"
+          >
+        <mat-error *ngIf="amount.invalid && amount.touched">
+          <span *ngIf="amount?.errors?.required">Please enter the amount!</span>
+          <span *ngIf="amount?.errors?.pattern">Please enter a number that is greater than 0!</span>
+        </mat-error>
+      </mat-form-field>
+    </section>
+  </section>
+  <section class="buttons">
+    <button
+      mat-stroked-button
+      color="primary"
+      type="submit"
+      [disabled]="form.invalid">{{ editMode ? 'Update' : 'Add' }}</button>
+    <button
+      mat-stroked-button
+      color="accent"
+      type="button"
+      (click)="onDelete(form)"
+      *ngIf="editMode"
+      >Delete</button>
+    <button
+      mat-stroked-button
+      type="button"
+      (click)="onClear(form)">Clear</button>
+  </section>
 </form>
-<button mat-stroked-button color="primary" (click)="onAdd()">Add</button>
-<button mat-stroked-button color="accent">Delete</button>
-<button mat-stroked-button>Clear</button>

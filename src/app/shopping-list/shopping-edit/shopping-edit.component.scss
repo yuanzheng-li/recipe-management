@@ -1,0 +1,29 @@
+@mixin display-flex-start-center {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+form {
+  margin: 1rem;
+
+  section {
+    &.form-group {
+      @include display-flex-start-center;
+    }
+
+    &.form-control {
+      margin: 0 1rem;
+    }
+  }
+
+  section {
+    &.buttons {
+      @include display-flex-start-center;
+
+      > button {
+        margin: 0 1rem;
+      }
+    }
+  }
+}
