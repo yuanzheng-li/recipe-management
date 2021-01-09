@@ -1,0 +1,42 @@
+form {
+  padding: 2rem;
+
+  section {
+    margin: 1rem auto;
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    img {
+      width: 50%;
+      height: auto;
+    }
+
+    &.form-control--buttons {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      > button {
+        margin-right: 1rem;
+      }
+    }
+
+    &.form-control--img {
+      display: flex;
+      justify-content: center;
+    }
+
+    &.form-control--ingredient {
+      display: flex;
+      justify-content: flex-start;
+      align-items: baseline;
+
+      mat-form-field {
+        width: 30%;
+        margin-right: 1rem;
+      }
+    }
+  }
+}
