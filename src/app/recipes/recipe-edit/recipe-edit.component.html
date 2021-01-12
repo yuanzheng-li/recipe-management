@@ -54,7 +54,7 @@
         </mat-error>
       </mat-form-field>
     </section>
-    <section class="form-control--img">
+    <section class="form-control--img" *ngIf="imagePath.value">
       <img [src]="imagePath.value" alt="Ingredient Image">
     </section>
     <section class="form-control">
