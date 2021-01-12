@@ -1,28 +1,36 @@
 <article>
-  <img [src]="recipe.imagePath" alt="{{recipe.name}}">
-  <h1>{{ recipe.name }}</h1>
-  <button mat-icon-button [matMenuTriggerFor]="recipeManage" aria-label="Manage Recipe Button">
-    <span>Manage Recipe</span>
-    <mat-icon>expand_more</mat-icon>
-  </button>
-  <mat-menu #recipeManage="matMenu">
-    <button mat-menu-item (click)="onAddToShoppingList()">
-      <mat-icon>shopping_cart</mat-icon>
-      <span>To Shopping List</span>
+  <section class="header">
+    <h1>{{ recipe.name }}</h1>
+    <button mat-icon-button [matMenuTriggerFor]="recipeManage" aria-label="Manage Recipe Button">
+      <span>Manage Recipe</span>
+      <mat-icon>expand_more</mat-icon>
     </button>
-    <button mat-menu-item [routerLink]="['/recipes', id, 'edit']">
-      <mat-icon>create</mat-icon>
-      <span>Edit Recipe</span>
-    </button>
-    <button mat-menu-item (click)="onDelete()">
-      <mat-icon>delete</mat-icon>
-      <span>Delete Recipe</span>
-    </button>
-  </mat-menu>
-  <section>{{ recipe.description }}</section>
-  <section>
+    <mat-menu #recipeManage="matMenu">
+      <button mat-menu-item (click)="onAddToShoppingList()">
+        <mat-icon>shopping_cart</mat-icon>
+        <span>To Shopping List</span>
+      </button>
+      <button mat-menu-item [routerLink]="['/recipes', id, 'edit']">
+        <mat-icon>create</mat-icon>
+        <span>Edit Recipe</span>
+      </button>
+      <button mat-menu-item (click)="onDelete()">
+        <mat-icon>delete</mat-icon>
+        <span>Delete Recipe</span>
+      </button>
+    </mat-menu>
+  </section>
+  <section class="image">
+    <img [src]="recipe.imagePath" alt="{{recipe.name}}">
+  </section>
+  <section class="recipe-description">{{ recipe.description }}</section>
+  <section class="ingredients">
+    <h3 *ngIf="recipe.ingredients.length > 0">Ingredients</h3>
     <mat-list role="list">
-      <mat-list-item role="listitem" *ngFor="let ingredient of recipe.ingredients">{{ ingredient.name }} ({{ ingredient.amount }})</mat-list-item>
+      <mat-list-item role="listitem" *ngFor="let ingredient of recipe.ingredients; last as last">
+        {{ ingredient.name }} ({{ ingredient.amount }})
+        <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+      </mat-list-item>
     </mat-list>
   </section>
 </article>

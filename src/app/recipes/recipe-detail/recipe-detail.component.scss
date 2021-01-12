@@ -1,6 +1,26 @@
 article {
-  & > button {
-    margin-left: auto;
+  margin: 2rem 7rem;
+
+  section {
+    margin: 1rem auto;
+
+    &.header {
+      display: flex;
+      align-items: baseline;
+    }
+
+    img {
+      width: 50%;
+      height: auto;
+    }
+
+    &.recipe-description {
+      margin-bottom: 3rem;
+    }
+  }
+
+  button {
+    margin-left: 1rem;
     width: auto;
   }
 }
