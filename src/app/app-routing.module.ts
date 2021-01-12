@@ -23,6 +23,7 @@ const routes: Routes = [
   {
     path: 'recipes/new',
     component: RecipeEditComponent,
+    resolve: [RecipesResolverService],
   },
   {
     path: 'recipes/:id',
@@ -37,7 +38,7 @@ const routes: Routes = [
   {
     path: 'shopping-list',
     component: ShoppingListComponent,
-    resolve: [ShoppingListResolver]
+    resolve: [ShoppingListResolver],
   },
 ];
 
