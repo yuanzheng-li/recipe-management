@@ -1,0 +1,33 @@
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+section {
+  @include flex-center;
+  margin: 2rem 7rem;
+}
+
+form {
+  margin: 2rem 7rem;
+
+  h1 {
+    @include flex-center;
+  }
+
+  section {
+    @include flex-center;
+
+    button {
+      margin: 0 1rem;
+    }
+
+    mat-form-field {
+      width: 30%;
+    }
+
+    &.buttons {
+      margin-top: 1rem;
+    }
+  }
+}
