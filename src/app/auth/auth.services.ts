@@ -1,7 +1,10 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { Router } from "@angular/router";
+import { BehaviorSubject, throwError } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
+
+import { User } from "./user.model";
 
 export interface AuthResponseData {
   idToken: string;
@@ -13,31 +16,57 @@ export interface AuthResponseData {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  user = new BehaviorSubject<User | null>(null);
 
-  signUp({email, password}: {email: string, password: string}) {
-    return this.http.post<AuthResponseData>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD4Upim8VZh49X1CwqzbFKZWr6cnO6OSDc',
-      {
-        email,
-        password,
-        returnSecureToken: true,
-      }
-    ).pipe(catchError(this.handleError));
+  constructor(private http: HttpClient,
+    private router: Router) {}
+
+  signUp({ email, password }: { email: string; password: string }) {
+    return this.http
+      .post<AuthResponseData>(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD4Upim8VZh49X1CwqzbFKZWr6cnO6OSDc',
+        {
+          email,
+          password,
+          returnSecureToken: true,
+        }
+      )
+      .pipe(catchError(this.handleError), tap(this.handleAuth.bind(this)));
   }
 
-  login({email, password}: {email: string; password: string}) {
-    return this.http.post<AuthResponseData>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD4Upim8VZh49X1CwqzbFKZWr6cnO6OSDc',
-      {
-        email,
-        password,
-        returnSecurityToken: true
-      }
-    ).pipe(catchError(this.handleError));
+  login({ email, password }: { email: string; password: string }) {
+    return this.http
+      .post<AuthResponseData>(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD4Upim8VZh49X1CwqzbFKZWr6cnO6OSDc',
+        {
+          email,
+          password,
+          returnSecurityToken: true,
+        }
+      )
+      .pipe(catchError(this.handleError), tap(this.handleAuth.bind(this)));
+  }
+
+  logout() {
+    this.user.next(null);
+    this.router.navigate(['/auth']);
+  }
+
+  private handleAuth({
+    email,
+    localId,
+    idToken,
+    expiresIn,
+  }: AuthResponseData) {
+    const expiresDate = new Date(
+      new Date().getTime() + 1000 * parseInt(expiresIn)
+    );
+    const user = new User(email, localId, idToken, expiresDate);
+
+    this.user.next(user);
   }
 
   private handleError(error: HttpErrorResponse) {

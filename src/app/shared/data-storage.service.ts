@@ -23,19 +23,23 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    return this.http.get<Recipe[]>(
-      'https://recipe-book-e1b99-default-rtdb.firebaseio.com/recipes.json'
-    ).pipe(map((recipes) => {
-      return recipes.map((recipe) => {
-        return {
-          ...recipe,
-          ingredients: recipe.ingredients || []
-        };
-      });
-    }),
-    tap((recipes) => {
-      this.recipeService.addRecipes(recipes);
-    }));
+    return this.http
+      .get<Recipe[]>(
+        'https://recipe-book-e1b99-default-rtdb.firebaseio.com/recipes.json'
+      )
+      .pipe(
+        map((recipes) => {
+          return recipes.map((recipe) => {
+            return {
+              ...recipe,
+              ingredients: recipe.ingredients || [],
+            };
+          });
+        }),
+        tap((recipes) => {
+          this.recipeService.addRecipes(recipes);
+        })
+      );
   }
 
   storeShoppingList() {

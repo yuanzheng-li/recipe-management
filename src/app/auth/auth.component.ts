@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 
 import { AuthResponseData, AuthService } from "./auth.services";
@@ -15,7 +16,8 @@ export class AuthComponent {
   isLoading: boolean = false;
 
   constructor(private authService: AuthService,
-    private snackBar: MatSnackBar) {}
+    private snackBar: MatSnackBar,
+    private router: Router) {}
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -33,11 +35,12 @@ export class AuthComponent {
 
     authObservable.subscribe((res) => {
         console.log(res);
-        this.isLoading = false;
+        this.router.navigate(['/recipes']);
       }, (errorMessage) => {
         this.openSnackBar(errorMessage);
+      }, () => {
         this.isLoading = false;
-      })
+      });
 
     form.reset();
   }
