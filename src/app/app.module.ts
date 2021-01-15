@@ -10,9 +10,7 @@ import { HeaderComponent } from './header/header.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { RecipesModule } from './recipes/recipes.module';
 import { MatButtonModule } from '@angular/material/button';
-import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { AuthModule } from './auth/auth.module';
 
 @NgModule({
@@ -30,7 +28,6 @@ import { AuthModule } from './auth/auth.module';
     MatMenuModule,
     MatToolbarModule,
     AuthModule,
-    ShoppingListModule,
   ],
   providers: [
     {
