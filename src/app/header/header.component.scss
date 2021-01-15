@@ -5,18 +5,22 @@ mat-toolbar {
   & > span {
     margin: 0 0.5rem;
 
-    &:nth-child(1) {
+    &:first-child {
       margin-right: 3rem;
     }
 
     &.header__item--clickable {
       font-size: 1rem;
       cursor: pointer;
+
+      &:last-child {
+        margin-left: auto;
+      }
     }
   }
 
   & > button {
-    margin-left: auto;
+    margin: 0 0.5rem;
     width: auto;
   }
 }

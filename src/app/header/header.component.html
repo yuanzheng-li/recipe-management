@@ -8,13 +8,11 @@
     class="header__item header__item--clickable"
     routerLink="shopping-list"
     *ngIf="isAuthenticated">Shopping List</span>
-  <span
-    class="header__item header__item--clickable"
-    >
-    <span *ngIf="!isAuthenticated" routerLink="auth">Login</span>
-    <span *ngIf="isAuthenticated" (click)="onLogout()">Logout</span>
-  </span>
-  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Manage Button">
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    aria-label="Manage Button"
+    *ngIf="isAuthenticated">
     <span>Manage</span>
     <mat-icon>expand_more</mat-icon>
   </button>
@@ -28,4 +26,10 @@
       <span>Fetch Data</span>
     </button>
   </mat-menu>
+  <span
+    class="header__item header__item--clickable"
+    >
+    <span *ngIf="!isAuthenticated" routerLink="auth">Login</span>
+    <span *ngIf="isAuthenticated" (click)="onLogout()">Logout</span>
+  </span>
 </mat-toolbar>
