@@ -11,7 +11,6 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,6 @@ import { AuthModule } from './auth/auth.module';
     MatIconModule,
     MatMenuModule,
     MatToolbarModule,
-    AuthModule,
   ],
   providers: [
     {
