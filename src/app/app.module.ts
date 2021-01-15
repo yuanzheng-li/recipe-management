@@ -30,7 +30,6 @@ import { AuthModule } from './auth/auth.module';
     MatMenuModule,
     MatToolbarModule,
     AuthModule,
-    RecipesModule,
     ShoppingListModule,
   ],
   providers: [

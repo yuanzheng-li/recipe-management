@@ -7,6 +7,10 @@ const routes: Routes = [
     pathMatch: 'full',
     redirectTo: '/recipes',
   },
+  {
+    path: 'recipes',
+    loadChildren: './recipes/recipes.module#RecipesModule',
+  },
 ];
 
 @NgModule({

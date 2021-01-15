@@ -1,1 +1,2 @@
-<app-recipe-list></app-recipe-list>
+<app-recipe-list *ngIf="!outlet.isActivated"></app-recipe-list>
+<router-outlet #outlet="outlet"></router-outlet>

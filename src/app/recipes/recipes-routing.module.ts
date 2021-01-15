@@ -9,28 +9,24 @@ import { RecipesComponent } from "./recipes.component";
 
 const routes: Routes = [
   {
-    path: 'recipes',
+    path: '',
     component: RecipesComponent,
     resolve: [RecipesResolverService],
     canActivate: [AuthGuardService],
-  },
-  {
-    path: 'recipes/new',
-    component: RecipeEditComponent,
-    resolve: [RecipesResolverService],
-    canActivate: [AuthGuardService],
-  },
-  {
-    path: 'recipes/:id',
-    component: RecipeDetailComponent,
-    resolve: [RecipesResolverService],
-    canActivate: [AuthGuardService],
-  },
-  {
-    path: 'recipes/:id/edit',
-    component: RecipeEditComponent,
-    resolve: [RecipesResolverService],
-    canActivate: [AuthGuardService],
+    children: [
+      {
+        path: 'new',
+        component: RecipeEditComponent,
+      },
+      {
+        path: ':id',
+        component: RecipeDetailComponent,
+      },
+      {
+        path: ':id/edit',
+        component: RecipeEditComponent,
+      },
+    ],
   },
 ];
 
