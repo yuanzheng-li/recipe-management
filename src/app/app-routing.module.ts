@@ -9,7 +9,10 @@ const routes: Routes = [
   },
   {
     path: 'recipes',
-    loadChildren: './recipes/recipes.module#RecipesModule',
+    loadChildren: () =>
+      import('./recipes/recipes.module').then(
+        (module) => module.RecipesModule
+      ),
   },
   {
     path: 'shopping-list',
@@ -21,9 +24,7 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
-      import('./auth/auth.module').then(
-        (module) => module.AuthModule
-      ),
+      import('./auth/auth.module').then((module) => module.AuthModule),
   },
 ];
 
