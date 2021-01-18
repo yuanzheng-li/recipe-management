@@ -4,6 +4,8 @@ import { Router } from "@angular/router";
 import { BehaviorSubject, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
+import { RecipeService } from '../recipes/recipe.service';
+import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 import { User } from "./user.model";
 
@@ -23,8 +25,12 @@ export class AuthService {
   user = new BehaviorSubject<User | null>(null);
   private tokenExpirationTimer: any = null;
 
-  constructor(private http: HttpClient,
-    private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private recipeService: RecipeService,
+    private shoppingListService: ShoppingListService
+  ) {}
 
   signUp({ email, password }: { email: string; password: string }) {
     return this.http
@@ -59,7 +65,10 @@ export class AuthService {
 
     localStorage.removeItem('userData');
 
-    if(this.tokenExpirationTimer) {
+    this.recipeService.deleteRecipes();
+    this.shoppingListService.deleteIngredients();
+
+    if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
     this.tokenExpirationTimer = null;
@@ -67,7 +76,7 @@ export class AuthService {
 
   autoLogin() {
     const userDataStr = localStorage.getItem('userData');
-    if(!userDataStr) {
+    if (!userDataStr) {
       return;
     }
 
@@ -80,10 +89,11 @@ export class AuthService {
       new Date(userData._expiresDate)
     );
 
-    if(loadedUser) {
+    if (loadedUser) {
       this.user.next(loadedUser);
 
-      const expiresIn = new Date(userData._expiresDate).getTime() - new Date().getTime();
+      const expiresIn =
+        new Date(userData._expiresDate).getTime() - new Date().getTime();
       this.autoLogout(expiresIn);
     }
   }
@@ -94,12 +104,7 @@ export class AuthService {
     }, expirationDuration);
   }
 
-  private handleAuth({
-    email,
-    localId,
-    idToken,
-    expiresIn
-  }: AuthResponseData) {
+  private handleAuth({ email, localId, idToken, expiresIn }: AuthResponseData) {
     const expiresDate = new Date(
       new Date().getTime() + 1000 * parseInt(expiresIn)
     );

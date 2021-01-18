@@ -10,31 +10,36 @@ export class RecipeService {
 
   private recipes: Recipe[] = [];
 
-  getRecipes() {
+  getRecipes(): Recipe[] {
     return [...this.recipes];
   }
 
-  getRecipeByIndex(index: number) {
+  getRecipeByIndex(index: number): Recipe {
     return this.recipes[index];
   }
 
-  addRecipe(recipe: Recipe) {
+  addRecipe(recipe: Recipe): void {
     this.recipes.push(recipe);
     this.recipeChanges.next([...this.recipes]);
   }
 
-  addRecipes(recipes: Recipe[]) {
+  addRecipes(recipes: Recipe[]): void {
     this.recipes.push(...recipes);
     this.recipeChanges.next([...this.recipes]);
   }
 
-  updateRecipe(index: number, recipe: Recipe) {
+  updateRecipe(index: number, recipe: Recipe): void {
     this.recipes[index] = recipe;
     this.recipeChanges.next([...this.recipes]);
   }
 
-  deleteRecipe(index: number) {
+  deleteRecipe(index: number): void {
     this.recipes.splice(index, 1);
     this.recipeChanges.next([...this.recipes]);
+  }
+
+  deleteRecipes(): void {
+    this.recipes = [];
+    this.recipeChanges.next([]);
   }
 }
