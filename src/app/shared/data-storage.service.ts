@@ -1,12 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { map, tap } from 'rxjs/operators';
-import { User } from '../auth/user.model';
 
+import { User } from '../auth/user.model';
 import { Recipe } from "../recipes/recipe.model";
 import { RecipeService } from "../recipes/recipe.service";
+import { GetRecipesAction } from '../recipes/store/recipe.actions';
 import { ShoppingListService } from "../shopping-list/shopping-list.service";
+import { AppState } from '../store/app.reducer';
 import { Ingredient } from "./ingredient.model";
 
 @Injectable({
@@ -17,7 +20,8 @@ export class DataStorageService {
     private http: HttpClient,
     private recipeService: RecipeService,
     private shoppingListService: ShoppingListService,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) {}
 
   storeRecipes() {
@@ -39,7 +43,7 @@ export class DataStorageService {
   fetchRecipes() {
     const user = this.getUserDataInLocalStorage();
 
-    if  (!user) {
+    if (!user) {
       this.router.navigate(['/auth']);
     }
 
@@ -60,7 +64,7 @@ export class DataStorageService {
           });
         }),
         tap((recipes) => {
-          this.recipeService.addRecipes(recipes);
+          this.store.dispatch(new GetRecipesAction(recipes));
         })
       );
   }
@@ -92,12 +96,12 @@ export class DataStorageService {
     return this.http
 
       .get<Ingredient[]>(
-          `https://recipe-book-e1b99-default-rtdb.firebaseio.com/${user?.id}/ingredients.json`
-        )
+        `https://recipe-book-e1b99-default-rtdb.firebaseio.com/${user?.id}/ingredients.json`
+      )
 
       .pipe(
         tap((ingredients) => {
-          if  (ingredients) {
+          if (ingredients) {
             this.shoppingListService.addIngredients(ingredients);
           }
         })
