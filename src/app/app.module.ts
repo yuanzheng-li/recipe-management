@@ -7,12 +7,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import * as fromApp from './store/app.reducer';
+import { RecipeEffects } from './recipes/store/recipe.effects';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -26,6 +28,7 @@ import * as fromApp from './store/app.reducer';
     MatMenuModule,
     MatToolbarModule,
     StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([RecipeEffects])
   ],
   providers: [
     {
