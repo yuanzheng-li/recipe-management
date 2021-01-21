@@ -7,7 +7,7 @@ import { map, tap } from 'rxjs/operators';
 import { User } from '../auth/user.model';
 import { Recipe } from "../recipes/recipe.model";
 import { RecipeService } from "../recipes/recipe.service";
-import { GetRecipesAction } from '../recipes/store/recipe.actions';
+import { SetRecipesAction } from '../recipes/store/recipe.actions';
 import { ShoppingListService } from "../shopping-list/shopping-list.service";
 import { AppState } from '../store/app.reducer';
 import { Ingredient } from "./ingredient.model";
@@ -64,7 +64,7 @@ export class DataStorageService {
           });
         }),
         tap((recipes) => {
-          this.store.dispatch(new GetRecipesAction(recipes));
+          this.store.dispatch(new SetRecipesAction(recipes));
         })
       );
   }
@@ -108,7 +108,7 @@ export class DataStorageService {
       );
   }
 
-  private getUserDataInLocalStorage(): User | null {
+  getUserDataInLocalStorage(): User | null {
     const userStr = localStorage.getItem('userData');
 
     if (!userStr) {
