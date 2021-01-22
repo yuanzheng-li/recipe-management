@@ -6,6 +6,7 @@ import { AuthService } from '../auth/auth.services';
 import { DataStorageService } from '../shared/data-storage.service';
 import { AppState } from '../store/app.reducer';
 import * as RecipeActions from '../recipes/store/recipe.actions';
+import * as ShoppingListActions from '../shopping-list/store/shopping-list.actions';
 
 @Component({
   selector: 'app-header',
@@ -38,11 +39,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSaveData() {
     this.store.dispatch(new RecipeActions.StoreRecipes());
-    this.dataStorageService.storeShoppingList();
+    this.store.dispatch(new ShoppingListActions.StoreIngredients());
   }
 
   onFetchData() {
     this.store.dispatch(new RecipeActions.FetchRecipes());
-    this.dataStorageService.fetchShoppingList().subscribe();
+    this.store.dispatch(new ShoppingListActions.FetchIngredients());
   }
 }

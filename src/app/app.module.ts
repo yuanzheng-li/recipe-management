@@ -17,6 +17,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import * as fromApp from './store/app.reducer';
 import { RecipeEffects } from './recipes/store/recipe.effects';
 import { environment } from 'src/environments/environment';
+import { ShoppingListEffects } from './shopping-list/store/shopping-list.effects';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -30,7 +31,7 @@ import { environment } from 'src/environments/environment';
     MatMenuModule,
     MatToolbarModule,
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([RecipeEffects]),
+    EffectsModule.forRoot([RecipeEffects, ShoppingListEffects]),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
     }),

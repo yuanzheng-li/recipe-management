@@ -12,7 +12,7 @@ export interface State {
   recipes: Recipe[];
 }
 
-const initialState = {
+const initialState: State = {
   recipes: [],
 };
 
