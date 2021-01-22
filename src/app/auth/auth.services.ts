@@ -6,10 +6,10 @@ import { BehaviorSubject, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 
 import { environment } from "src/environments/environment";
-import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { AppState } from '../store/app.reducer';
 import { User } from "./user.model";
 import * as RecipeActions from '../recipes/store/recipe.actions';
+import * as ShoppingListActions from '../shopping-list/store/shopping-list.actions';
 
 export interface AuthResponseData {
   idToken: string;
@@ -30,7 +30,6 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private shoppingListService: ShoppingListService,
     private store: Store<AppState>
   ) {}
 
@@ -68,7 +67,7 @@ export class AuthService {
     localStorage.removeItem('userData');
 
     this.store.dispatch(new RecipeActions.DeleteRecipes());
-    this.shoppingListService.deleteIngredients();
+    this.store.dispatch(new ShoppingListActions.DeleteIngredients());
 
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);

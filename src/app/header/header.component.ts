@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../auth/auth.services';
-import { DataStorageService } from '../shared/data-storage.service';
 import { AppState } from '../store/app.reducer';
 import * as RecipeActions from '../recipes/store/recipe.actions';
 import * as ShoppingListActions from '../shopping-list/store/shopping-list.actions';
@@ -18,7 +17,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private userSubscription!: Subscription;
 
   constructor(
-    private dataStorageService: DataStorageService,
     private authService: AuthService,
     private store: Store<AppState>
   ) {}
