@@ -1,13 +1,15 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { Store } from '@ngrx/store';
 import { BehaviorSubject, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
-import { environment } from "src/environments/environment";
-import { RecipeService } from '../recipes/recipe.service';
-import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
+import { environment } from "src/environments/environment";
+import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { AppState } from '../store/app.reducer';
 import { User } from "./user.model";
+import * as RecipeActions from '../recipes/store/recipe.actions';
 
 export interface AuthResponseData {
   idToken: string;
@@ -28,8 +30,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private recipeService: RecipeService,
-    private shoppingListService: ShoppingListService
+    private shoppingListService: ShoppingListService,
+    private store: Store<AppState>
   ) {}
 
   signUp({ email, password }: { email: string; password: string }) {
@@ -65,7 +67,7 @@ export class AuthService {
 
     localStorage.removeItem('userData');
 
-    this.recipeService.deleteRecipes();
+    this.store.dispatch(new RecipeActions.DeleteRecipes());
     this.shoppingListService.deleteIngredients();
 
     if (this.tokenExpirationTimer) {
