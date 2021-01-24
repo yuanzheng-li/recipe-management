@@ -18,6 +18,7 @@ import * as fromApp from './store/app.reducer';
 import { RecipeEffects } from './recipes/store/recipe.effects';
 import { environment } from 'src/environments/environment';
 import { ShoppingListEffects } from './shopping-list/store/shopping-list.effects';
+import { AuthEffects } from './auth/store/auth.effects';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -31,7 +32,7 @@ import { ShoppingListEffects } from './shopping-list/store/shopping-list.effects
     MatMenuModule,
     MatToolbarModule,
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([RecipeEffects, ShoppingListEffects]),
+    EffectsModule.forRoot([RecipeEffects, ShoppingListEffects, AuthEffects]),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
     }),

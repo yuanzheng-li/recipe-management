@@ -1,46 +1,49 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from "@angular/router";
-import { Observable } from "rxjs";
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
-import { AuthResponseData, AuthService } from "./auth.services";
+import { AppState } from '../store/app.reducer';
+import { LoginStart, SignupStart } from './store/auth.actions';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit, OnDestroy {
   isLoginMode: boolean = true;
   isLoading: boolean = false;
+  authSubscription!: Subscription;
 
-  constructor(private authService: AuthService,
+  constructor(
     private snackBar: MatSnackBar,
-    private router: Router) {}
+    private store: Store<AppState>) {}
+
+  ngOnInit() {
+    this.authSubscription = this.store.select('auth').subscribe((authState) => {
+      this.isLoading = authState.isLoading;
+      if(authState.errorMsg) {
+        this.openSnackBar(authState.errorMsg);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.authSubscription.unsubscribe();
+  }
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
 
   onSubmit(form: NgForm) {
-    this.isLoading = true;
-    let authObservable: Observable<AuthResponseData>;
-
     if(this.isLoginMode) {
-      authObservable = this.authService.login(form.value);
+      this.store.dispatch(new LoginStart(form.value));
     } else {
-      authObservable = this.authService.signUp(form.value);
+      this.store.dispatch(new SignupStart(form.value));
     }
-
-    authObservable.subscribe((res) => {
-        console.log(res);
-        this.router.navigate(['/recipes']);
-        this.isLoading = false;
-      }, (errorMessage) => {
-        this.openSnackBar(errorMessage);
-        this.isLoading = false;
-      });
 
     form.reset();
   }

@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from '../auth/auth.services';
 import { AppState } from '../store/app.reducer';
 import * as RecipeActions from '../recipes/store/recipe.actions';
 import * as ShoppingListActions from '../shopping-list/store/shopping-list.actions';
+import * as AuthActions from '../auth/store/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -17,13 +17,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private userSubscription!: Subscription;
 
   constructor(
-    private authService: AuthService,
     private store: Store<AppState>
   ) {}
 
   ngOnInit() {
-    this.userSubscription = this.authService.user.subscribe((user) => {
-      this.isAuthenticated = !!user;
+    this.userSubscription = this.store.select('auth').subscribe((authState) => {
+      this.isAuthenticated = !!authState.user;
     });
   }
 
@@ -32,7 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-    this.authService.logout();
+    this.store.dispatch(new AuthActions.Logout());
   }
 
   onSaveData() {
